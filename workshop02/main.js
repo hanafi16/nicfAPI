@@ -101,9 +101,35 @@ app.get('/api/city/:cityId', (req, resp) => {
 // TODO POST /api/city
 app.post('/api/city', (req, resp) => {
 	const newCity = req.body;
-
+	resp.type('application/json');
+	db.insertCity(newCity)
+	.then(result => {
+		resp.status(201);
+		resp.send(result);
+	}
+		
+		)
+		.catch(error => {
+			resp.status(400);
+			resp.json({error:error});
+		})
 })
-
+/* model answer
+app.post('/api/city', 
+    (req, resp) => {
+        const newCity = req.body;
+        resp.type('application/json')
+        db.insertCity(newCity)
+            .then(result => {
+                resp.status(201)
+                resp.json(result);
+            })
+            .catch(error => {
+                resp.status(400);
+                resp.json({ error: error});
+            })
+    }
+)*/
 // Optional workshop
 // TODO HEAD /api/state/:state
 

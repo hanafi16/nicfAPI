@@ -1,4 +1,3 @@
-const uuidv1 = require('uuid/v1')
 const MongoClient = require('mongodb').MongoClient;
 
 const f = function(config) {
@@ -12,9 +11,9 @@ f.prototype.getDB = function() {
 			.then(() => this.client.db(this.config.databaseName))
 	);
 }
-f.prototype.findCitiesByState = function(state, params = {}) {
-	const limit = parseInt(params['limit']) || 10;
-	const offset = parseInt(params['offset']) || 0;
+f.prototype.findCitiesByState = function(state, params) {
+	const limit = parseInt(params.limit) || 10;
+	const offset = parseInt(params.offset) || 0;
 	return (
 		this.getDB()
 			.then(db => 
@@ -87,7 +86,6 @@ f.prototype.findAllStates = function() {
 }
 
 f.prototype.insertCity = function(params) {
-	params._id = uuidv1().substring(0, 8);
 	return (
 		this.getDB()
 			.then(db => 
